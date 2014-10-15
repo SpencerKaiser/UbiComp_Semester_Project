@@ -24,7 +24,6 @@ serial_port.flush()
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 pathFile = open(os.path.join(__location__, 'pathFile.txt'))
-# pathFile = open("pathFile.txt", 'w')
 scriptsPath = pathFile.readline()
 
 # size_of_queue = 300
@@ -40,8 +39,8 @@ currLevel = 0
 val_as_int = 101
 prevVal = 101
 diff = 0
-waiting = False
-muted = True                #Initialized to true to allow for muting on first wave over sensor
+waiting = True                  #Initialized to true to allow for muting on first wave over sensor
+muted = False
 buttonCounter = 0
 
 while True:
@@ -69,47 +68,70 @@ while True:
             os.system('open '+scriptsPath+'PausePlay.app')
             buttonCounter = 0
     elif diff >= 3 and val_as_int >= 10:
-        if 10 <= val_as_int < 14:
-            os.system(volumes[1])
-            curVol = 1
-            print("Volume Changed to 1")
-        elif 14 <= val_as_int < 17:
+        if 10 <= val_as_int < 17:
             os.system(volumes[2])
             curVol = 2
             print("Volume Changed to 2")
-        elif 17 <= val_as_int < 20:
-            os.system(volumes[3])
-            curVol = 3
-            print("Volume Changed to 3")
-        elif 20 <= val_as_int < 24:
+        elif 17 <= val_as_int < 24:
             os.system(volumes[4])
             curVol = 4
             print("Volume Changed to 4")
-        elif 24 <= val_as_int < 28:
-            os.system(volumes[5])
-            curVol = 5
-            print("Volume Changed to 5")
-        elif 28 <= val_as_int < 31:
+        elif 24 <= val_as_int < 31:
             os.system(volumes[6])
             curVol = 6
             print("Volume Changed to 6")
         elif 31 <= val_as_int < 34:
             os.system(volumes[7])
             curVol = 7
-            print("Volume Changed to 7")
+            print("Volume Changed to MAX")
         prevVal = val_as_int
         if val_as_int > 34:
             waiting = True
+        else:
+            muted = False
+        # if 10 <= val_as_int < 14:
+        #     os.system(volumes[1])
+        #     curVol = 1
+        #     print("Volume Changed to 1")
+        # elif 14 <= val_as_int < 17:
+        #     os.system(volumes[2])
+        #     curVol = 2
+        #     print("Volume Changed to 2")
+        # elif 17 <= val_as_int < 20:
+        #     os.system(volumes[3])
+        #     curVol = 3
+        #     print("Volume Changed to 3")
+        # elif 20 <= val_as_int < 24:
+        #     os.system(volumes[4])
+        #     curVol = 4
+        #     print("Volume Changed to 4")
+        # elif 24 <= val_as_int < 28:
+        #     os.system(volumes[5])
+        #     curVol = 5
+        #     print("Volume Changed to 5")
+        # elif 28 <= val_as_int < 31:
+        #     os.system(volumes[6])
+        #     curVol = 6
+        #     print("Volume Changed to 6")
+        # elif 31 <= val_as_int < 34:
+        #     os.system(volumes[7])
+        #     curVol = 7
+        #     print("Volume Changed to 7")
+        # prevVal = val_as_int
+        # if val_as_int > 34:
+        #     waiting = True
     elif (val_as_int < 10 or val_as_int > 1000) and waiting is True:
         if muted:
             os.system(volumes[curVol])
             muted = False
+            print("VOLUME RESTORED")
         elif not muted:
             os.system(volumes[0])
             muted = True
+            print("MUTED")
         prevVal = val_as_int
         waiting = False
-        print("Mute Toggled")
+        # print("Mute Toggled")
 
 serial_port.close()
 
