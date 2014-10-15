@@ -9,7 +9,6 @@ const int buttonPin = 2;
 const int ledPin = 8;
 const int trigPin = 12;
 const int echoPin = 13;
-const int buttonSig = 999;
 
 int buttonState;
 int lastButtonState = LOW;
@@ -31,7 +30,7 @@ void loop() {
   int reading = digitalRead(buttonPin);
   
   if (reading == HIGH && lastButtonState == LOW) {
-    Serial.println(buttonSig);
+    Serial.write(100);
     lastButtonState = HIGH;
   } else if (reading == LOW && lastButtonState == HIGH) {
     lastButtonState = LOW;
@@ -49,12 +48,12 @@ void loop() {
     } else {
       digitalWrite(ledPin, LOW);
     }
-    Serial.println(distance);
+    Serial.write(distance);
   } else {
-    Serial.println(100);
+    Serial.write(101);
   }
   
-  delay(500);
+  delay(300);
 }
 
 
