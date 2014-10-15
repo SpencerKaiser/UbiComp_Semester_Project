@@ -56,8 +56,8 @@ while True:
     diff = fabs(val_as_int - prevVal)
 
     print(val_as_int)
-    if val_as_int is 100:
-        while val_as_int is 100:
+    if val_as_int is 200:
+        while val_as_int is 200:
             val = serial_port.read()
             val_as_int = ord(val)
             buttonCounter += 1
@@ -68,19 +68,19 @@ while True:
             os.system('open '+scriptsPath+'PausePlay.app')
             buttonCounter = 0
     elif diff >= 3 and val_as_int >= 10:
-        if 10 <= val_as_int < 17:
+        if 10 <= val_as_int < 17 and curVol is not 2:
             os.system(volumes[2])
             curVol = 2
             print("Volume Changed to 2")
-        elif 17 <= val_as_int < 24:
+        elif 17 <= val_as_int < 24 and curVol is not 4:
             os.system(volumes[4])
             curVol = 4
             print("Volume Changed to 4")
-        elif 24 <= val_as_int < 31:
+        elif 24 <= val_as_int < 31 and curVol is not 6:
             os.system(volumes[6])
             curVol = 6
             print("Volume Changed to 6")
-        elif 31 <= val_as_int < 34:
+        elif 31 <= val_as_int < 34 and curVol is not 7:
             os.system(volumes[7])
             curVol = 7
             print("Volume Changed to MAX")

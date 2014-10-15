@@ -30,8 +30,8 @@ void loop() {
   int reading = digitalRead(buttonPin);
   
   if (reading == HIGH && lastButtonState == LOW) {
-    for(i = 0; i < 5; i++)      //Added redundancy for stability
-      Serial.write(100);
+    for(int i = 0; i < 5; i++)      //Added redundancy for stability
+      Serial.write(200);
     lastButtonState = HIGH;
   } else if (reading == LOW && lastButtonState == HIGH) {
     lastButtonState = LOW;
@@ -51,7 +51,7 @@ void loop() {
     }
     Serial.write(distance);
   } else {
-    Serial.write(100);
+    Serial.write(200);
   }
   
   delay(300);
