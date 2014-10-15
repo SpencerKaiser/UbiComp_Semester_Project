@@ -5,29 +5,55 @@
  *           Spencer Kaiser
  */
 
-int trigPin = 12;
-int echoPin = 13;
+const int buttonPin = 2;
+const int ledPin = 8;
+const int trigPin = 12;
+const int echoPin = 13;
+const int buttonSig = 999;
 
-// the setup routine runs once when you press reset:
+int buttonState;
+int lastButtonState = LOW;
+
+
+
+
 void setup() {
-  // initialize serial communication at 14400 bits per second:
   Serial.begin(14400);
+  
+  pinMode(buttonPin, INPUT);
+  pinMode(ledPin, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 }
 
-// the loop routine runs over and over again forever:
 void loop() {
-  long duration, distance;
-  digitalWrite(trigPin, LOW);  // Added this line
-  delayMicroseconds(2); // Added this line
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10); // Added this line
-  digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH);
-  distance = (duration/2) / 29.1;
   
-  Serial.write(distance);
+  int reading = digitalRead(buttonPin);
+  
+  if (reading == HIGH && lastButtonState == LOW) {
+    Serial.println(buttonSig);
+    lastButtonState = HIGH;
+  } else if (reading == LOW && lastButtonState == HIGH) {
+    lastButtonState = LOW;
+  } else if (reading == LOW && lastButtonState == LOW) {
+    long duration, distance;
+    digitalWrite(trigPin, LOW);  // Added this line
+    delayMicroseconds(2); // Added this line
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10); // Added this line
+    digitalWrite(trigPin, LOW);
+    duration = pulseIn(echoPin, HIGH);
+    distance = (duration/2) / 29.1;
+    if (distance < 50) {
+      digitalWrite(ledPin, HIGH);
+    } else {
+      digitalWrite(ledPin, LOW);
+    }
+    Serial.println(distance);
+  } else {
+    Serial.println(100);
+  }
+  
   delay(500);
 }
 
