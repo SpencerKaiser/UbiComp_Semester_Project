@@ -31,6 +31,8 @@ void loop() {
   
   if (reading == HIGH && lastButtonState == LOW) {
     Serial.write(100);
+    Serial.write(100);
+    Serial.write(100);
     lastButtonState = HIGH;
   } else if (reading == LOW && lastButtonState == HIGH) {
     lastButtonState = LOW;

@@ -19,8 +19,13 @@ volumes[7] = 'osascript -e "set Volume 7"'
 
 curVol = 0
 
-serial_port = serial.Serial('/dev/tty.usbmodem1421', 14400, timeout=1)
+serial_port = serial.Serial('/dev/tty.usbmodem1451', 14400, timeout=1)
 serial_port.flush()
+
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+pathFile = open(os.path.join(__location__, 'pathFile.txt'))
+# pathFile = open("pathFile.txt", 'w')
+scriptsPath = pathFile.readline()
 
 # size_of_queue = 300
 # init_queue_value = -1
@@ -32,14 +37,15 @@ serial_port.flush()
 # plt.show()
 
 currLevel = 0
-prevVal = 100
+val_as_int = 101
+prevVal = 101
 diff = 0
 waiting = False
-muted = False
+muted = True                #Initialized to true to allow for muting on first wave over sensor
+buttonCounter = 0
 
 while True:
     val = serial_port.read()
-    val_as_int = 101
     if val:
         val_as_int = ord(val)
         # data.appendleft(val_as_int)
@@ -52,7 +58,16 @@ while True:
 
     print(val_as_int)
     if val_as_int is 100:
-        os.system("open ~/Desktop/UbiComp/PausePlay.app")
+        while val_as_int is 100:
+            val = serial_port.read()
+            val_as_int = ord(val)
+            buttonCounter += 1
+        if buttonCounter >= 7:
+            os.system('open '+scriptsPath+'NextTrack.app')
+            buttonCounter = 0
+        else:
+            os.system('open '+scriptsPath+'PausePlay.app')
+            buttonCounter = 0
     elif diff >= 3 and val_as_int >= 10:
         if 10 <= val_as_int < 14:
             os.system(volumes[1])
@@ -95,8 +110,6 @@ while True:
         prevVal = val_as_int
         waiting = False
         print("Mute Toggled")
-
-
 
 serial_port.close()
 
