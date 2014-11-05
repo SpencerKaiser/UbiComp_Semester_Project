@@ -2,7 +2,9 @@ UbiComp_Semester_Project
 ========================
 
 © Spencer Kaiser and Charlie Albright, 2014
+
 Southern Methodist University - Ubiquitous Computing
+
 
 A repository containing all files related to the development of the UbiComp Semester Project
 
