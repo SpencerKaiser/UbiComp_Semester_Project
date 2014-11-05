@@ -6,7 +6,6 @@ UbiComp_Semester_Project
 <br>CSE 7390: Ubiquitous Computing – Eric Larson
 
 <br>
-<br>
 
 <h1>VolumeControl</h1>
 
