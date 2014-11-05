@@ -1,4 +1,4 @@
-UbiComp_Semester_Project
+UbiComp Semester Project
 ========================
 
 <strong>© Spencer Kaiser and Charlie Albright, 2014</strong>
