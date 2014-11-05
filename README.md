@@ -2,7 +2,8 @@ UbiComp_Semester_Project
 ========================
 
 <strong>© Spencer Kaiser and Charlie Albright, 2014</strong>
-<br>Southern Methodist University - Ubiquitous Computing
+<br>Southern Methodist University
+<br>CSE 7390: Ubiquitous Computing – Eric Larson
 
 <br>
 <br>
